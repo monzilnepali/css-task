@@ -1,0 +1,3066 @@
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1440, maximum-scale=1.0">
+  <link rel="shortcut icon" type="image/png" href="https://animaproject.s3.amazonaws.com/home/favicon.png">
+  <style>
+    @import url("https://fonts.googleapis.com/css?family=Nunito:700,600");
+
+    @font-face {
+      font-family: "Domaine Display-Regular";
+      font-style: normal;
+      font-weight: 400;
+      src: url('https://fonts.animaapp.com/DomaineDisplay-Regular') format("opentype");
+    }
+
+    @font-face {
+      font-family: "Domaine Display-Bold";
+      font-style: normal;
+      font-weight: 700;
+      src: url('https://fonts.animaapp.com/DomaineDisplay-Bold') format("opentype");
+    }
+
+    .component-wrapper a {
+      display: contents;
+      pointer-events: auto;
+      text-decoration: none;
+    }
+
+    .component-wrapper * {
+      -webkit-font-smoothing: antialiased;
+      box-sizing: border-box;
+      pointer-events: none;
+    }
+
+    .component-wrapper a *,
+    .component-wrapper input,
+    .component-wrapper video,
+    .component-wrapper iframe {
+      pointer-events: auto;
+    }
+
+    .component-wrapper.not-ready,
+    .component-wrapper.not-ready * {
+      visibility: hidden !important;
+    }
+
+    .screen a {
+      display: contents;
+      text-decoration: none;
+    }
+
+    .full-width-a {
+      width: 100%;
+    }
+
+    .full-height-a {
+      height: 100%;
+    }
+
+    .container-center-vertical {
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .container-center-vertical>* {
+      flex-shrink: 0;
+      pointer-events: auto;
+    }
+
+    .container-center-horizontal {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      pointer-events: none;
+      width: 100%;
+    }
+
+    .container-center-horizontal>* {
+      flex-shrink: 0;
+      pointer-events: auto;
+    }
+
+    .auto-animated div {
+      --z-index: -1;
+      opacity: 0;
+      position: absolute;
+    }
+
+    .auto-animated input {
+      --z-index: -1;
+      opacity: 0;
+      position: absolute;
+    }
+
+    .auto-animated .container-center-vertical,
+    .auto-animated .container-center-horizontal {
+      opacity: 1;
+    }
+
+    .overlay {
+      display: none;
+      height: 100%;
+      opacity: 0;
+      position: fixed;
+      top: 0;
+      width: 100%;
+    }
+
+    .overlay.animate-appear {
+      animation: reveal 0.3s ease-in-out 1 normal forwards;
+      display: block;
+      opacity: 0;
+    }
+
+    .overlay.animate-disappear {
+      animation: reveal 0.3s ease-in-out 1 reverse forwards;
+      display: block;
+      opacity: 1;
+    }
+
+    @keyframes reveal {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .animate-nodelay {
+      animation-delay: 0s;
+    }
+
+    .align-self-flex-start {
+      align-self: flex-start;
+    }
+
+    .align-self-flex-end {
+      align-self: flex-end;
+    }
+
+    .align-self-flex-center {
+      align-self: flex-center;
+    }
+
+    .valign-text-middle {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .valign-text-bottom {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    input:focus {
+      outline: none;
+    }
+
+    .listeners-active,
+    .listeners-active * {
+      pointer-events: auto;
+    }
+
+    .hidden,
+    .hidden * {
+      pointer-events: none;
+      visibility: hidden;
+    }
+
+    .smart-layers-pointers,
+    .smart-layers-pointers * {
+      pointer-events: auto;
+      visibility: visible;
+    }
+
+    .listeners-active-click,
+    .listeners-active-click * {
+      cursor: pointer;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --black: #000000;
+      --heavy-metal: #2c2c2c;
+      --hunter-green: #161613;
+      --masala: #3b3b3b;
+      --pampas: #f6f4ef;
+      --punch: #d94729;
+      --font-size-l: 16px;
+      --font-size-m: 15px;
+      --font-size-s: 13px;
+      --font-size-xl: 18px;
+      --font-size-xs: 12px;
+      --font-size-xxl: 28px;
+      --font-size-xxxl: 50px;
+      --font-family-domaine_display-bold: "Domaine Display-Bold", Helvetica;
+      --font-family-domaine_display-regular: "Domaine Display-Regular", Helvetica;
+      --font-family-domaine_display-semibold: "Domaine Display-SemiBold", Helvetica;
+      --font-family-nunito: "Nunito", Helvetica;
+    }
+
+    .nunito-semi-bold-pampas-15px {
+      color: var(--pampas);
+      font-family: var(--font-family-nunito);
+      font-size: var(--font-size-m);
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    .nunito-semi-bold-black-15px {
+      color: var(--black);
+      font-family: var(--font-family-nunito);
+      font-size: var(--font-size-m);
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    .nunito-semi-bold-black-18px {
+      color: var(--black);
+      font-family: var(--font-family-nunito);
+      font-size: var(--font-size-xl);
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    .domainedisplay-semi-bold-pampas-28px {
+      color: var(--pampas);
+      font-family: var(--font-family-domaine_display-semibold);
+      font-size: var(--font-size-xxl);
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    .nunito-bold-pampas-12px {
+      color: var(--pampas);
+      font-family: var(--font-family-nunito);
+      font-size: var(--font-size-xs);
+      font-style: normal;
+      font-weight: 700;
+    }
+
+    .nunito-bold-black-12px {
+      color: var(--black);
+      font-family: var(--font-family-nunito);
+      font-size: var(--font-size-xs);
+      font-style: normal;
+      font-weight: 700;
+    }
+
+    .nunito-bold-black-16px {
+      color: var(--black);
+      font-family: var(--font-family-nunito);
+      font-size: var(--font-size-l);
+      font-style: normal;
+      font-weight: 700;
+    }
+
+    .domainedisplay-regular-normal-pampas-28px {
+      color: var(--pampas);
+      font-family: var(--font-family-domaine_display-regular);
+      font-size: var(--font-size-xxl);
+      font-style: normal;
+      font-weight: 400;
+    }
+
+    .domainedisplay-regular-normal-black-50px {
+      color: var(--black);
+      font-family: var(--font-family-domaine_display-regular);
+      font-size: var(--font-size-xxxl);
+      font-style: normal;
+      font-weight: 400;
+    }
+
+    .domainedisplay-regular-normal-punch-50px {
+      color: var(--punch);
+      font-family: var(--font-family-domaine_display-regular);
+      font-size: var(--font-size-xxxl);
+      font-style: normal;
+      font-weight: 400;
+    }
+
+    .nunito-bold-pampas-13px {
+      color: var(--pampas);
+      font-family: var(--font-family-nunito);
+      font-size: var(--font-size-s);
+      font-style: normal;
+      font-weight: 700;
+    }
+
+    .domainedisplay-bold-black-200px {
+      color: var(--black);
+      font-family: var(--font-family-domaine_display-bold);
+      font-size: 200px;
+      font-style: normal;
+      font-weight: 700;
+    }
+
+    .nunito-bold-black-15px {
+      color: var(--black);
+      font-family: var(--font-family-nunito);
+      font-size: var(--font-size-m);
+      font-style: normal;
+      font-weight: 700;
+    }
+
+    .nunito-semi-bold-black-12px {
+      color: var(--black);
+      font-family: var(--font-family-nunito);
+      font-size: var(--font-size-xs);
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    .domainedisplay-regular-normal-pampas-50px {
+      color: var(--pampas);
+      font-family: var(--font-family-domaine_display-regular);
+      font-size: var(--font-size-xxxl);
+      font-style: normal;
+      font-weight: 400;
+    }
+
+    /* screen - home */
+    .home {
+      align-items: center;
+      background-color: var(--pampas);
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      height: 6635px;
+      justify-content: flex-start;
+      mix-blend-mode: normal;
+      overflow: hidden;
+      overflow-x: hidden;
+      position: relative;
+      width: 1440px;
+    }
+
+    .home .flex-col-xl4bh6 {
+      align-items: center;
+      background-color: transparent;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 1;
+      height: auto;
+      justify-content: flex-start;
+      margin-top: 37px;
+      min-height: 5968px;
+      position: relative;
+      width: 1440px;
+    }
+
+    .home .nav-PVHVD6 {
+      align-items: center;
+      background-color: transparent;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: row;
+      flex-shrink: 1;
+      height: 76px;
+      justify-content: flex-end;
+      margin-left: 23.33px;
+      min-width: 1251px;
+      position: relative;
+      width: auto;
+    }
+
+    .home .image-1-O3YGrV {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: 76px;
+      mix-blend-mode: normal;
+      position: relative;
+      width: 71px;
+    }
+
+    .home .image-2-O3YGrV {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: 37px;
+      margin-bottom: 0.0px;
+      margin-left: 167px;
+      mix-blend-mode: normal;
+      position: relative;
+      width: 139px;
+    }
+
+    .home .process-O3YGrV {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: 0.00px;
+      line-height: normal;
+      margin-left: 167px;
+      margin-top: 0.0px;
+      min-height: 24px;
+      min-width: 59px;
+      mix-blend-mode: normal;
+      position: relative;
+      text-align: left;
+      width: 59px;
+    }
+
+    .home .spanmti1b-8wXwvY {}
+
+    .home .work-O3YGrV {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: 0.00px;
+      line-height: normal;
+      margin-left: 167px;
+      margin-top: 0.0px;
+      min-height: 24px;
+      min-width: 41px;
+      mix-blend-mode: normal;
+      position: relative;
+      text-align: left;
+      width: 41px;
+    }
+
+    .home .span1gmlp-F7qEFb {}
+
+    .home .about-O3YGrV {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: 0.00px;
+      line-height: normal;
+      margin-left: 167px;
+      margin-top: 0.0px;
+      min-height: 24px;
+      min-width: 47px;
+      mix-blend-mode: normal;
+      position: relative;
+      text-align: left;
+      width: 47px;
+    }
+
+    .home .spanuc7nng-vYxqDA {}
+
+    .home .contact-O3YGrV {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: 0.00px;
+      line-height: normal;
+      margin-left: 167px;
+      margin-top: 0.0px;
+      min-height: 24px;
+      min-width: 59px;
+      mix-blend-mode: normal;
+      position: relative;
+      text-align: left;
+      width: 59px;
+    }
+
+    .home .spanbxx5s-tsxl5h {}
+
+    .home .flex-row-PVHVD6 {
+      align-items: flex-end;
+      align-self: flex-end;
+      background-color: transparent;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: row;
+      flex-shrink: 1;
+      height: 696px;
+      justify-content: flex-start;
+      margin-right: 10.0px;
+      margin-top: 23px;
+      min-width: 1162px;
+      position: relative;
+      width: auto;
+    }
+
+    .home .union-oiO4pL {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: 13px;
+      margin-bottom: 124.33px;
+      mix-blend-mode: normal;
+      position: relative;
+      width: 21px;
+    }
+
+    .home .image-5-oiO4pL {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: 696px;
+      margin-left: 336px;
+      mix-blend-mode: normal;
+      object-fit: cover;
+      position: relative;
+      width: 805px;
+    }
+
+    .home .process-PVHVD6 {
+      align-items: flex-start;
+      background-color: transparent;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 1;
+      height: auto;
+      justify-content: flex-start;
+      margin-left: 31.0px;
+      margin-top: 90px;
+      min-height: 1252px;
+      position: relative;
+      width: 1237px;
+    }
+
+    .home .process-SbUbMc {
+      align-items: flex-start;
+      background-color: transparent;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: row;
+      flex-shrink: 1;
+      height: 315px;
+      justify-content: flex-start;
+      min-width: 1241px;
+      position: relative;
+      width: auto;
+    }
+
+    .home .flex-col-WIvmrJ {
+      align-items: flex-start;
+      background-color: transparent;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 1;
+      height: auto;
+      justify-content: flex-start;
+      min-height: 315px;
+      position: relative;
+      width: 386px;
+    }
+
+    .home .line-1-AZxuNN {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: 1px;
+      position: relative;
+      width: 295px;
+    }
+
+    .home .weve-worked-with-sta-AZxuNN {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: 0.00px;
+      line-height: 170px;
+      margin-bottom: -11px;
+      margin-top: 30px;
+      min-height: 159px;
+      min-width: 295px;
+      mix-blend-mode: normal;
+      opacity: 0.5;
+      position: relative;
+      text-align: left;
+      white-space: nowrap;
+      width: 295px;
+    }
+
+    .home .span54i8d-g0uEYW {}
+
+    .home .our-programmes-AZxuNN {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: -0.50px;
+      line-height: 121.4px;
+      margin-top: 64px;
+      min-height: 61px;
+      min-width: 386px;
+      mix-blend-mode: normal;
+      position: relative;
+      text-align: left;
+      white-space: nowrap;
+      width: auto;
+    }
+
+    .home .span0gsxb-A8Ccpz {}
+
+    .home .stat-WIvmrJ {
+      align-items: flex-start;
+      background-color: transparent;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 1;
+      height: auto;
+      justify-content: flex-start;
+      margin-left: 8px;
+      margin-top: 31px;
+      min-height: 155px;
+      position: relative;
+      width: 220px;
+    }
+
+    .home .x100m-mUAX09 {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: -0.50px;
+      line-height: 121.4px;
+      min-height: 61px;
+      min-width: 179px;
+      mix-blend-mode: normal;
+      position: relative;
+      text-align: left;
+      white-space: nowrap;
+      width: auto;
+    }
+
+    .home .spanzpcsi-MHzlAR {}
+
+    .home .tangible-improvement-mUAX09 {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: 0.00px;
+      line-height: 170px;
+      margin-bottom: -76px;
+      margin-top: 0px;
+      min-height: 94px;
+      min-width: 216px;
+      mix-blend-mode: normal;
+      position: relative;
+      text-align: justify;
+      white-space: nowrap;
+      width: 216px;
+    }
+
+    .home .spanz6yt3-3N64H8 {}
+
+    .home .stat-CbGBx9 {
+      align-items: flex-start;
+      background-color: transparent;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 1;
+      height: auto;
+      justify-content: flex-start;
+      margin-left: 95px;
+      margin-top: 31px;
+      min-height: 155px;
+      position: relative;
+      width: 220px;
+    }
+
+    .home .x30m-qC0avl {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: -0.50px;
+      line-height: 121.4px;
+      min-height: 61px;
+      min-width: 156px;
+      mix-blend-mode: normal;
+      position: relative;
+      text-align: left;
+      white-space: nowrap;
+      width: auto;
+    }
+
+    .home .spanu2usj-XmloJf {}
+
+    .home .improvement-in-reven-qC0avl {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: 0.00px;
+      line-height: 170px;
+      margin-bottom: -76px;
+      margin-top: 0px;
+      min-height: 94px;
+      min-width: 216px;
+      mix-blend-mode: normal;
+      position: relative;
+      text-align: justify;
+      white-space: nowrap;
+      width: 216px;
+    }
+
+    .home .spanmvx9x-gexPZD {}
+
+    .home .stat-MFSQqu {
+      align-items: flex-start;
+      background-color: transparent;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 1;
+      height: auto;
+      justify-content: flex-start;
+      margin-left: 92px;
+      margin-top: 31px;
+      min-height: 155px;
+      position: relative;
+      width: 220px;
+    }
+
+    .home .x100-VqwTFi {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: -0.50px;
+      line-height: 121.4px;
+      min-height: 61px;
+      min-width: 111px;
+      mix-blend-mode: normal;
+      position: relative;
+      text-align: left;
+      white-space: nowrap;
+      width: auto;
+    }
+
+    .home .spanqn25b-K62Z3V {}
+
+    .home .technology-delivery-VqwTFi {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: 0.00px;
+      line-height: 170px;
+      margin-bottom: -76px;
+      margin-top: 0px;
+      min-height: 94px;
+      min-width: 216px;
+      mix-blend-mode: normal;
+      position: relative;
+      text-align: justify;
+      white-space: nowrap;
+      width: 216px;
+    }
+
+    .home .spanx4jxk-gMl1SX {}
+
+    .home .flex-row-SbUbMc {
+      align-items: flex-start;
+      background-color: transparent;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: row;
+      flex-shrink: 1;
+      height: 901px;
+      justify-content: flex-start;
+      margin-top: 36px;
+      min-width: 1243px;
+      position: relative;
+      width: auto;
+    }
+
+    .home .overlap-group-container-jQG4p9 {
+      align-items: flex-start;
+      background-color: transparent;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 1;
+      height: auto;
+      justify-content: flex-start;
+      min-height: 901px;
+      position: relative;
+      width: 620px;
+    }
+
+    .home .overlap-group-RY3CY1 {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: 405px;
+      position: relative;
+      width: 620px;
+    }
+
+    .home .card-1Szexc {
+      background-color: transparent;
+      height: 405px;
+      left: 0px;
+      position: absolute;
+      top: 0px;
+      width: 620px;
+    }
+
+    .home .rectangle-1-cTPCxZ {
+      background-color: var(--hunter-green);
+      border-radius: 10px;
+      height: 405px;
+      left: 0px;
+      mix-blend-mode: normal;
+      position: absolute;
+      top: 0px;
+      width: 614px;
+    }
+
+    .home .image-1-cTPCxZ {
+      background-color: transparent;
+      height: 13px;
+      left: 61px;
+      mix-blend-mode: normal;
+      position: absolute;
+      top: 225px;
+      width: 13px;
+    }
+
+    .home .image-2-cTPCxZ {
+      background-color: transparent;
+      height: 13px;
+      left: 61px;
+      mix-blend-mode: normal;
+      position: absolute;
+      top: 254px;
+      width: 13px;
+    }
+
+    .home .image-3-cTPCxZ {
+      background-color: transparent;
+      height: 13px;
+      left: 61px;
+      mix-blend-mode: normal;
+      position: absolute;
+      top: 283px;
+      width: 13px;
+    }
+
+    .home .image-4-cTPCxZ {
+      background-color: transparent;
+      height: 13px;
+      left: 61px;
+      mix-blend-mode: normal;
+      position: absolute;
+      top: 312px;
+      width: 13px;
+    }
+
+    .home .image-5-cTPCxZ {
+      background-color: transparent;
+      height: 13px;
+      left: 61px;
+      mix-blend-mode: normal;
+      position: absolute;
+      top: 341px;
+      width: 13px;
+    }
+
+    .home .clarify-your-idea-an-cTPCxZ {
+      background-color: transparent;
+      height: auto;
+      left: 87px;
+      letter-spacing: 0.00px;
+      line-height: 194px;
+      mix-blend-mode: normal;
+      position: absolute;
+      text-align: left;
+      top: 218px;
+      white-space: nowrap;
+      width: 500px;
+    }
+
+    .home .spank6maa-xxyx6M {}
+
+    .home .launch-cTPCxZ {
+      background-color: transparent;
+      height: auto;
+      left: 162px;
+      letter-spacing: 0.00px;
+      line-height: 140px;
+      mix-blend-mode: normal;
+      position: absolute;
+      text-align: left;
+      top: 56px;
+      white-space: nowrap;
+      width: auto;
+    }
+
+    .home .spanqm9aa-7ycAPf {}
+
+    .home .get-your-fledgling-i-cTPCxZ {
+      background-color: transparent;
+      height: auto;
+      left: 61px;
+      letter-spacing: 0.00px;
+      line-height: 170px;
+      mix-blend-mode: normal;
+      position: absolute;
+      text-align: left;
+      top: 140px;
+      white-space: nowrap;
+      width: 500px;
+    }
+
+    .home .span0-MwsVpd {}
+
+    .home .span1-MwsVpd {
+      letter-spacing: 3.90px;
+    }
+
+    .home .startup-rocket-space-1Szexc {
+      background-color: transparent;
+      height: 68px;
+      left: 61px;
+      mix-blend-mode: normal;
+      position: absolute;
+      top: 42px;
+      width: 68px;
+    }
+
+    .home .overlap-group1-RY3CY1 {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: 486px;
+      margin-top: 10px;
+      position: relative;
+      width: 620px;
+    }
+
+    .home .card-fXp2Cw {
+      background-color: transparent;
+      height: 486px;
+      left: 0px;
+      position: absolute;
+      top: 0px;
+      width: 620px;
+    }
+
+    .home .rectangle-1-t7Z7g3 {
+      background-color: var(--hunter-green);
+      border-radius: 10px;
+      height: 486px;
+      left: 0px;
+      mix-blend-mode: normal;
+      position: absolute;
+      top: 0px;
+      width: 614px;
+    }
+
+    .home .image-1-t7Z7g3 {
+      background-color: transparent;
+      height: 13px;
+      left: 61px;
+      mix-blend-mode: normal;
+      position: absolute;
+      top: 253px;
+      width: 13px;
+    }
+
+    .home .image-2-t7Z7g3 {
+      background-color: transparent;
+      height: 13px;
+      left: 61px;
+      mix-blend-mode: normal;
+      position: absolute;
+      top: 312px;
+      width: 13px;
+    }
+
+    .home .image-3-t7Z7g3 {
+      background-color: transparent;
+      height: 13px;
+      left: 61px;
+      mix-blend-mode: normal;
+      position: absolute;
+      top: 399px;
+      width: 13px;
+    }
+
+    .home .identify-opportuniti-t7Z7g3 {
+      background-color: transparent;
+      height: auto;
+      left: 87px;
+      letter-spacing: 0.00px;
+      line-height: 194px;
+      mix-blend-mode: normal;
+      position: absolute;
+      text-align: left;
+      top: 246px;
+      white-space: nowrap;
+      width: 449px;
+    }
+
+    .home .spanoaw5l-KRxKPx {}
+
+    .home .boost-t7Z7g3 {
+      background-color: transparent;
+      height: auto;
+      left: 162px;
+      letter-spacing: 0.00px;
+      line-height: 140px;
+      mix-blend-mode: normal;
+      position: absolute;
+      text-align: left;
+      top: 56px;
+      white-space: nowrap;
+      width: auto;
+    }
+
+    .home .spanlopdt-8k4EBA {}
+
+    .home .leverage-your-expert-t7Z7g3 {
+      background-color: transparent;
+      height: auto;
+      left: 61px;
+      letter-spacing: 0.00px;
+      line-height: 170px;
+      mix-blend-mode: normal;
+      position: absolute;
+      text-align: left;
+      top: 140px;
+      white-space: nowrap;
+      width: 500px;
+    }
+
+    .home .span0-WBoxEX {}
+
+    .home .span1-WBoxEX {
+      letter-spacing: 3.90px;
+    }
+
+    .home .design-blueprint-building-sketch-1-fXp2Cw {
+      background-color: transparent;
+      height: 56px;
+      left: 61px;
+      mix-blend-mode: normal;
+      position: absolute;
+      top: 45px;
+      width: 64px;
+    }
+
+    .home .overlap-group-container-Px4xZr {
+      align-items: flex-start;
+      background-color: transparent;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 1;
+      height: auto;
+      justify-content: flex-start;
+      margin-left: 3px;
+      min-height: 901px;
+      position: relative;
+      width: 620px;
+    }
+
+    .home .overlap-group3-1qx7yv {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: 405px;
+      position: relative;
+      width: 620px;
+    }
+
+    .home .card-sZ9z2G {
+      background-color: transparent;
+      height: 405px;
+      left: 0px;
+      position: absolute;
+      top: 0px;
+      width: 620px;
+    }
+
+    .home .rectangle-1-0Vqgip {
+      background-color: var(--hunter-green);
+      border-radius: 10px;
+      height: 405px;
+      left: 0px;
+      mix-blend-mode: normal;
+      position: absolute;
+      top: 0px;
+      width: 614px;
+    }
+
+    .home .image-1-0Vqgip {
+      background-color: transparent;
+      height: 13px;
+      left: 61px;
+      mix-blend-mode: normal;
+      position: absolute;
+      top: 225px;
+      width: 13px;
+    }
+
+    .home .image-2-0Vqgip {
+      background-color: transparent;
+      height: 13px;
+      left: 61px;
+      mix-blend-mode: normal;
+      position: absolute;
+      top: 254px;
+      width: 13px;
+    }
+
+    .home .image-3-0Vqgip {
+      background-color: transparent;
+      height: 13px;
+      left: 61px;
+      mix-blend-mode: normal;
+      position: absolute;
+      top: 283px;
+      width: 13px;
+    }
+
+    .home .image-5-0Vqgip {
+      background-color: transparent;
+      height: 13px;
+      left: 61px;
+      mix-blend-mode: normal;
+      position: absolute;
+      top: 341px;
+      width: 13px;
+    }
+
+    .home .get-a-handle-on-the-0Vqgip {
+      background-color: transparent;
+      height: auto;
+      left: 87px;
+      letter-spacing: 0.00px;
+      line-height: 194px;
+      mix-blend-mode: normal;
+      position: absolute;
+      text-align: left;
+      top: 218px;
+      white-space: nowrap;
+      width: 500px;
+    }
+
+    .home .spanlfsgt-6gLrUL {}
+
+    .home .reboot-0Vqgip {
+      background-color: transparent;
+      height: auto;
+      left: 162px;
+      letter-spacing: 0.00px;
+      line-height: 140px;
+      mix-blend-mode: normal;
+      position: absolute;
+      text-align: left;
+      top: 56px;
+      white-space: nowrap;
+      width: auto;
+    }
+
+    .home .spankuvv6-3fdWUN {}
+
+    .home .take-your-existing-t-0Vqgip {
+      background-color: transparent;
+      height: auto;
+      left: 61px;
+      letter-spacing: 0.00px;
+      line-height: 170px;
+      mix-blend-mode: normal;
+      position: absolute;
+      text-align: left;
+      top: 140px;
+      white-space: nowrap;
+      width: 500px;
+    }
+
+    .home .span0-aOwr39 {}
+
+    .home .span1-aOwr39 {
+      letter-spacing: 3.90px;
+    }
+
+    .home .branding-corporate-identity-design-1-sZ9z2G {
+      background-color: transparent;
+      height: 56px;
+      left: 61px;
+      mix-blend-mode: normal;
+      position: absolute;
+      top: 50px;
+      width: 64px;
+    }
+
+    .home .overlap-group2-1qx7yv {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: 486px;
+      margin-top: 10px;
+      position: relative;
+      width: 620px;
+    }
+
+    .home .card-qF6u5k {
+      background-color: transparent;
+      height: 486px;
+      left: 0px;
+      position: absolute;
+      top: 0px;
+      width: 620px;
+    }
+
+    .home .rectangle-1-2SHdbu {
+      background-color: var(--hunter-green);
+      border-radius: 10px;
+      height: 486px;
+      left: 0px;
+      mix-blend-mode: normal;
+      position: absolute;
+      top: 0px;
+      width: 614px;
+    }
+
+    .home .image-1-2SHdbu {
+      background-color: transparent;
+      height: 13px;
+      left: 61px;
+      mix-blend-mode: normal;
+      position: absolute;
+      top: 253px;
+      width: 13px;
+    }
+
+    .home .image-2-2SHdbu {
+      background-color: transparent;
+      height: 13px;
+      left: 61px;
+      mix-blend-mode: normal;
+      position: absolute;
+      top: 312px;
+      width: 13px;
+    }
+
+    .home .image-3-2SHdbu {
+      background-color: transparent;
+      height: 13px;
+      left: 61px;
+      mix-blend-mode: normal;
+      position: absolute;
+      top: 369px;
+      width: 13px;
+    }
+
+    .home .by-giving-you-regula-2SHdbu {
+      background-color: transparent;
+      height: auto;
+      left: 87px;
+      letter-spacing: 0.00px;
+      line-height: 194px;
+      mix-blend-mode: normal;
+      position: absolute;
+      text-align: left;
+      top: 246px;
+      white-space: nowrap;
+      width: 449px;
+    }
+
+    .home .spanq818e-zkuxAc {}
+
+    .home .x-ray-2SHdbu {
+      background-color: transparent;
+      height: auto;
+      left: 162px;
+      letter-spacing: 0.00px;
+      line-height: 140px;
+      mix-blend-mode: normal;
+      position: absolute;
+      text-align: left;
+      top: 56px;
+      white-space: nowrap;
+      width: auto;
+    }
+
+    .home .spanc55mj-VyrOE4 {}
+
+    .home .turn-on-the-bs-detec-2SHdbu {
+      background-color: transparent;
+      height: auto;
+      left: 61px;
+      letter-spacing: 0.00px;
+      line-height: 170px;
+      mix-blend-mode: normal;
+      position: absolute;
+      text-align: left;
+      top: 140px;
+      white-space: nowrap;
+      width: 500px;
+    }
+
+    .home .span0-Luh7mO {}
+
+    .home .span1-Luh7mO {
+      letter-spacing: 3.90px;
+    }
+
+    .home .data-analysis-resear-qF6u5k {
+      background-color: transparent;
+      height: 56px;
+      left: 61px;
+      mix-blend-mode: normal;
+      position: absolute;
+      top: 48px;
+      width: 64px;
+    }
+
+    .home .quote-PVHVD6 {
+      align-items: center;
+      background-color: transparent;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: row;
+      flex-shrink: 1;
+      height: 340px;
+      justify-content: flex-start;
+      margin-left: 15.0px;
+      margin-top: 17px;
+      min-width: 1041px;
+      position: relative;
+      width: auto;
+    }
+
+    .home .text_label-jfW6sD {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: 0.00px;
+      line-height: 170px;
+      min-height: 340px;
+      min-width: 96px;
+      mix-blend-mode: normal;
+      opacity: 0.1;
+      position: relative;
+      text-align: left;
+      width: auto;
+    }
+
+    .home .span9g7hj-zkckSL {}
+
+    .home .flex-col-jfW6sD {
+      align-items: flex-start;
+      background-color: transparent;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 1;
+      height: auto;
+      justify-content: flex-start;
+      margin-bottom: 1.0px;
+      margin-left: 115px;
+      min-height: 189px;
+      position: relative;
+      width: 609px;
+    }
+
+    .home .our-new-idea-was-so-JKUpQf {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: 0.00px;
+      line-height: 170px;
+      margin-bottom: -29px;
+      min-height: 141px;
+      min-width: 609px;
+      mix-blend-mode: normal;
+      position: relative;
+      text-align: justify;
+      white-space: nowrap;
+      width: 609px;
+    }
+
+    .home .spanwnh4v-kZKT1Q {}
+
+    .home .rob-taylor-ceo-of-4-gd-JKUpQf {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: 3.00px;
+      line-height: 170px;
+      margin-bottom: -144px;
+      margin-top: 22px;
+      min-height: 26px;
+      min-width: 275px;
+      mix-blend-mode: normal;
+      position: relative;
+      text-align: left;
+      white-space: nowrap;
+      width: auto;
+    }
+
+    .home .spankn6ap-0Im4fs {}
+
+    .home .text_label-fwbCW1 {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: 0.00px;
+      line-height: 170px;
+      margin-left: 117px;
+      min-height: 340px;
+      min-width: 96px;
+      mix-blend-mode: normal;
+      opacity: 0.1;
+      position: relative;
+      text-align: left;
+      width: auto;
+    }
+
+    .home .span0a1dp-nJ0gov {}
+
+    .home .our-work-PVHVD6 {
+      align-items: flex-start;
+      background-color: transparent;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: row;
+      flex-shrink: 1;
+      height: 1763px;
+      justify-content: flex-start;
+      margin-left: 8.0px;
+      margin-top: 98px;
+      min-width: 1244px;
+      position: relative;
+      width: auto;
+    }
+
+    .home .flex-col-djc7xC {
+      align-items: flex-end;
+      background-color: transparent;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 1;
+      height: auto;
+      justify-content: flex-start;
+      min-height: 1581px;
+      position: relative;
+      width: 740px;
+    }
+
+    .home .flex-row-vnzff4 {
+      align-items: flex-start;
+      background-color: transparent;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: row;
+      flex-shrink: 1;
+      height: 794px;
+      justify-content: flex-start;
+      min-width: 740px;
+      position: relative;
+      width: auto;
+    }
+
+    .home .our-work-title-7o6XY4 {
+      align-items: flex-start;
+      background-color: transparent;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 1;
+      height: auto;
+      justify-content: flex-start;
+      min-height: 280px;
+      position: relative;
+      width: 279px;
+    }
+
+    .home .our-work-3g6Rxp {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: -0.50px;
+      line-height: 121.4px;
+      min-height: 61px;
+      min-width: 216px;
+      mix-blend-mode: normal;
+      position: relative;
+      text-align: left;
+      white-space: nowrap;
+      width: auto;
+    }
+
+    .home .spanyp6fzj-tvctvV {}
+
+    .home .line-2-3g6Rxp {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: 1px;
+      margin-top: 29px;
+      position: relative;
+      width: 275px;
+    }
+
+    .home .our-multitalented-te-3g6Rxp {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: 0.00px;
+      line-height: 170px;
+      margin-bottom: -11px;
+      margin-top: 30px;
+      min-height: 159px;
+      min-width: 275px;
+      mix-blend-mode: normal;
+      opacity: 0.5;
+      position: relative;
+      text-align: left;
+      white-space: nowrap;
+      width: 275px;
+    }
+
+    .home .spanh1zof-QqFXPn {}
+
+    .home .fx-7o6XY4 {
+      align-items: flex-start;
+      align-self: flex-end;
+      background-color: transparent;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 1;
+      height: auto;
+      justify-content: flex-start;
+      margin-left: 26px;
+      min-height: 712px;
+      position: relative;
+      width: 435px;
+    }
+
+    .home .overlap-group4-2MDYhN {
+      background-color: transparent;
+      background-image: url(https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/screenshot-2021-05-19-at-14-00-1-1@2x.png);
+      background-position: 50% 50%;
+      background-size: cover;
+      flex-shrink: 1;
+      height: 527px;
+      position: relative;
+      width: 431px;
+    }
+
+    .home .screenshot-2021-05-19-at-1400-2-dZgc49 {
+      background-color: transparent;
+      height: 501px;
+      left: 11px;
+      mix-blend-mode: normal;
+      object-fit: cover;
+      position: absolute;
+      top: 7px;
+      width: 410px;
+    }
+
+    .home .image-4-dZgc49 {
+      background-color: transparent;
+      height: 23px;
+      left: 42px;
+      mix-blend-mode: normal;
+      object-fit: cover;
+      position: absolute;
+      top: 449px;
+      width: 80px;
+    }
+
+    .home .fintech-2MDYhN {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: 2.40px;
+      line-height: 170px;
+      margin-bottom: -150px;
+      margin-left: 12px;
+      margin-top: 27px;
+      min-height: 20px;
+      min-width: 66px;
+      mix-blend-mode: normal;
+      position: relative;
+      text-align: left;
+      white-space: nowrap;
+      width: auto;
+    }
+
+    .home .spandq5qo-iMT6dv {}
+
+    .home .megaslice-and-fx-pro-2MDYhN {
+      align-self: center;
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: 0.00px;
+      line-height: 170px;
+      margin-bottom: -39px;
+      margin-right: 22.0px;
+      margin-top: 7px;
+      min-height: 131px;
+      min-width: 389px;
+      mix-blend-mode: normal;
+      position: relative;
+      text-align: left;
+      white-space: nowrap;
+      width: 389px;
+    }
+
+    .home .spanex9t7g-5iUaWQ {}
+
+    .home .overlap-group5-vnzff4 {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: 697px;
+      margin-right: 4px;
+      margin-top: 90px;
+      position: relative;
+      width: 426px;
+    }
+
+    .home .x4-gd-jztKYO {
+      align-items: flex-start;
+      background-color: transparent;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      height: auto;
+      justify-content: flex-start;
+      left: 0px;
+      min-height: 697px;
+      position: absolute;
+      top: 0px;
+      width: 426px;
+    }
+
+    .home .overlap-group2-Yh7set {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: 519px;
+      position: relative;
+      width: 422px;
+    }
+
+    .home .crystal-kwok-xu-edfp-p-ih-xg-unsplash-3-nox7aA {
+      background-color: transparent;
+      height: 517px;
+      left: 0px;
+      mix-blend-mode: normal;
+      position: absolute;
+      top: 2px;
+      width: 422px;
+    }
+
+    .home .crystal-kwok-xu-edfp-p-ih-xg-unsplash-4-nox7aA {
+      background-color: transparent;
+      height: 500px;
+      left: 7px;
+      mix-blend-mode: normal;
+      position: absolute;
+      top: 0px;
+      width: 408px;
+    }
+
+    .home .rectangle-2-nox7aA {
+      background-color: transparent;
+      height: 204px;
+      left: 6px;
+      mix-blend-mode: normal;
+      position: absolute;
+      top: 296px;
+      width: 409px;
+    }
+
+    .home .logistics-Yh7set {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: 2.40px;
+      line-height: 170px;
+      margin-bottom: -150px;
+      margin-left: 7px;
+      margin-top: 20px;
+      min-height: 20px;
+      min-width: 81px;
+      mix-blend-mode: normal;
+      position: relative;
+      text-align: left;
+      white-space: nowrap;
+      width: auto;
+    }
+
+    .home .span6h6re-5QApD0 {}
+
+    .home .megaslice-and-smartl-Yh7set {
+      align-self: center;
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: 0.00px;
+      line-height: 170px;
+      margin-bottom: -39px;
+      margin-right: 4.0px;
+      margin-top: 7px;
+      min-height: 131px;
+      min-width: 408px;
+      mix-blend-mode: normal;
+      position: relative;
+      text-align: left;
+      white-space: nowrap;
+      width: 408px;
+    }
+
+    .home .spanc0l22-TvgHlX {}
+
+    .home .smartlogistix-logo-1-jztKYO {
+      background-color: transparent;
+      height: 38px;
+      left: 72px;
+      mix-blend-mode: normal;
+      position: absolute;
+      top: 440px;
+      width: 174px;
+    }
+
+    .home .flex-col-ftWWxy {
+      align-items: flex-start;
+      align-self: flex-end;
+      background-color: transparent;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 1;
+      height: auto;
+      justify-content: flex-start;
+      margin-left: 79px;
+      min-height: 1483px;
+      position: relative;
+      width: 429px;
+    }
+
+    .home .x4-gd-wNhYZx {
+      align-items: center;
+      background-color: transparent;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 1;
+      height: auto;
+      justify-content: flex-start;
+      margin-left: 1px;
+      min-height: 696px;
+      position: relative;
+      width: 428px;
+    }
+
+    .home .overlap-group-FXxfLi {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: 514px;
+      margin-right: 4.0px;
+      position: relative;
+      width: 424px;
+    }
+
+    .home .crystal-kwok-xu-edfp-p-ih-xg-unsplash-3-Krj3su {
+      background-color: transparent;
+      height: 513px;
+      left: 0px;
+      mix-blend-mode: normal;
+      object-fit: cover;
+      position: absolute;
+      top: 1px;
+      width: 424px;
+    }
+
+    .home .crystal-kwok-xu-edfp-p-ih-xg-unsplash-4-Krj3su {
+      background-color: transparent;
+      height: 500px;
+      left: 8px;
+      mix-blend-mode: normal;
+      object-fit: cover;
+      position: absolute;
+      top: 0px;
+      width: 408px;
+    }
+
+    .home .rectangle-2-Krj3su {
+      background-color: transparent;
+      height: 204px;
+      left: 8px;
+      mix-blend-mode: normal;
+      position: absolute;
+      top: 296px;
+      width: 408px;
+    }
+
+    .home .attachment-3_4-gd-black-logo-1-Krj3su {
+      background-color: transparent;
+      height: 40px;
+      left: 28px;
+      mix-blend-mode: normal;
+      object-fit: cover;
+      position: absolute;
+      top: 435px;
+      width: 144px;
+    }
+
+    .home .overlap-group1-FXxfLi {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: 158px;
+      margin-right: 4.0px;
+      margin-top: 24px;
+      position: relative;
+      width: 408px;
+    }
+
+    .home .megaslice-and-4-gd-b-XHZgeo {
+      background-color: transparent;
+      height: auto;
+      left: 0px;
+      letter-spacing: 0.00px;
+      line-height: 170px;
+      mix-blend-mode: normal;
+      position: absolute;
+      text-align: left;
+      top: 27px;
+      white-space: nowrap;
+      width: 408px;
+    }
+
+    .home .spanj5du2-YB1HIO {}
+
+    .home .defense-XHZgeo {
+      background-color: transparent;
+      height: auto;
+      left: 0px;
+      letter-spacing: 0.00px;
+      line-height: 170px;
+      mix-blend-mode: normal;
+      position: absolute;
+      text-align: left;
+      top: 0px;
+      white-space: nowrap;
+      width: auto;
+    }
+
+    .home .span0-cacQ2a {
+      letter-spacing: 2.40px;
+    }
+
+    .home .span1-cacQ2a {}
+
+    .home .smart-wNhYZx {
+      align-items: flex-start;
+      background-color: transparent;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 1;
+      height: auto;
+      justify-content: flex-start;
+      margin-top: 91px;
+      min-height: 696px;
+      position: relative;
+      width: 429px;
+    }
+
+    .home .overlap-group3-xun0Qo {
+      background-color: transparent;
+      background-image: url(https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/crystal-kwok-xuedfppihxg-unsplash-2-1@2x.png);
+      background-position: 50% 50%;
+      background-size: cover;
+      flex-shrink: 1;
+      height: 521px;
+      margin-top: 0px;
+      position: relative;
+      width: 425px;
+    }
+
+    .home .crystal-kwok-xu-edfp-p-ih-xg-unsplash-3-cOO2gH {
+      background-color: transparent;
+      height: 500px;
+      left: 9px;
+      mix-blend-mode: normal;
+      object-fit: cover;
+      position: absolute;
+      top: 0px;
+      width: 408px;
+    }
+
+    .home .rectangle-2-cOO2gH {
+      background-color: transparent;
+      height: 204px;
+      left: 9px;
+      mix-blend-mode: normal;
+      position: absolute;
+      top: 296px;
+      width: 408px;
+    }
+
+    .home .image-3-cOO2gH {
+      background-color: transparent;
+      height: 31px;
+      left: 31px;
+      mix-blend-mode: normal;
+      object-fit: cover;
+      position: absolute;
+      top: 442px;
+      width: 155px;
+    }
+
+    .home .industrial-xun0Qo {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: 2.40px;
+      line-height: 170px;
+      margin-bottom: -150px;
+      margin-left: 10px;
+      margin-top: 17px;
+      min-height: 20px;
+      min-width: 95px;
+      mix-blend-mode: normal;
+      position: relative;
+      text-align: left;
+      white-space: nowrap;
+      width: auto;
+    }
+
+    .home .spanhtq0a-u2gzfW {}
+
+    .home .megaslice-and-pilana-xun0Qo {
+      align-self: center;
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: 0.00px;
+      line-height: 170px;
+      margin-bottom: -39px;
+      margin-right: 1.0px;
+      margin-top: 7px;
+      min-height: 131px;
+      min-width: 408px;
+      mix-blend-mode: normal;
+      position: relative;
+      text-align: left;
+      white-space: nowrap;
+      width: 408px;
+    }
+
+    .home .spanhtlqv-vtxxHV {}
+
+    .home .members-of-PVHVD6 {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: 3.00px;
+      line-height: 170px;
+      margin-bottom: -144px;
+      margin-top: 119px;
+      min-height: 26px;
+      min-width: 126px;
+      mix-blend-mode: normal;
+      position: relative;
+      text-align: center;
+      white-space: nowrap;
+      width: auto;
+    }
+
+    .home .spantu5uk-Bzwx5E {}
+
+    .home .flex-row-Q8mnGL {
+      align-items: flex-start;
+      background-color: transparent;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: row;
+      flex-shrink: 1;
+      height: 66px;
+      justify-content: flex-start;
+      margin-top: 43px;
+      min-width: 1100px;
+      position: relative;
+      width: auto;
+    }
+
+    .home .rectangle-7-xo7qAj {
+      background-color: var(--masala);
+      border-radius: 100px;
+      flex-shrink: 1;
+      height: 66px;
+      mix-blend-mode: normal;
+      position: relative;
+      width: 196px;
+    }
+
+    .home .rectangle-8-xo7qAj {
+      background-color: var(--masala);
+      border-radius: 100px;
+      flex-shrink: 1;
+      height: 66px;
+      margin-left: 30px;
+      mix-blend-mode: normal;
+      position: relative;
+      width: 196px;
+    }
+
+    .home .rectangle-9-xo7qAj {
+      background-color: var(--masala);
+      border-radius: 100px;
+      flex-shrink: 1;
+      height: 66px;
+      margin-left: 30px;
+      mix-blend-mode: normal;
+      position: relative;
+      width: 196px;
+    }
+
+    .home .rectangle-10-xo7qAj {
+      background-color: var(--masala);
+      border-radius: 100px;
+      flex-shrink: 1;
+      height: 66px;
+      margin-left: 30px;
+      mix-blend-mode: normal;
+      position: relative;
+      width: 196px;
+    }
+
+    .home .rectangle-11-xo7qAj {
+      background-color: var(--masala);
+      border-radius: 100px;
+      flex-shrink: 1;
+      height: 66px;
+      margin-left: 30px;
+      mix-blend-mode: normal;
+      position: relative;
+      width: 196px;
+    }
+
+    .home .flex-col-PVHVD6 {
+      align-items: flex-end;
+      background-color: var(--hunter-green);
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 1;
+      height: auto;
+      justify-content: flex-start;
+      margin-top: 115px;
+      min-height: 1244px;
+      padding: 114px 94px;
+      position: relative;
+      width: 1440px;
+    }
+
+    .home .flex-row-1RxDxc {
+      align-items: flex-end;
+      background-color: transparent;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: row;
+      flex-shrink: 1;
+      height: 470px;
+      justify-content: flex-start;
+      margin-top: 0px;
+      min-width: 1244px;
+      position: relative;
+      width: auto;
+    }
+
+    .home .our-work-title-5D1xSy {
+      align-items: flex-start;
+      align-self: flex-start;
+      background-color: transparent;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 1;
+      height: auto;
+      justify-content: flex-start;
+      min-height: 280px;
+      position: relative;
+      width: 299px;
+    }
+
+    .home .our-team-qT8Aip {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: -0.50px;
+      line-height: 121.4px;
+      min-height: 61px;
+      min-width: 223px;
+      mix-blend-mode: normal;
+      position: relative;
+      text-align: left;
+      white-space: nowrap;
+      width: auto;
+    }
+
+    .home .span8epkv-xYCtxA {}
+
+    .home .line-2-qT8Aip {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: 1px;
+      margin-top: 29px;
+      position: relative;
+      width: 277px;
+    }
+
+    .home .lorem-ipsum-dolor-si-qT8Aip {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: 0.00px;
+      line-height: 170px;
+      margin-bottom: -11px;
+      margin-top: 30px;
+      min-height: 159px;
+      min-width: 295px;
+      mix-blend-mode: normal;
+      opacity: 0.5;
+      position: relative;
+      text-align: left;
+      white-space: nowrap;
+      width: 295px;
+    }
+
+    .home .spani3jui-OkGVN6 {}
+
+    .home .team-5D1xSy {
+      align-items: flex-start;
+      background-color: transparent;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 1;
+      height: auto;
+      justify-content: flex-start;
+      margin-left: 18px;
+      min-height: 380px;
+      position: relative;
+      width: 299px;
+    }
+
+    .home .rectangle-4-UrjqSj {
+      background-color: var(--heavy-metal);
+      border-radius: 10px;
+      flex-shrink: 1;
+      height: 287px;
+      mix-blend-mode: normal;
+      position: relative;
+      width: 295px;
+    }
+
+    .home .justin-megawarne-UrjqSj {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: 0.00px;
+      line-height: 170px;
+      margin-bottom: -122px;
+      margin-top: 23px;
+      min-height: 48px;
+      min-width: 241px;
+      mix-blend-mode: normal;
+      position: relative;
+      text-align: left;
+      white-space: nowrap;
+      width: auto;
+    }
+
+    .home .span2ywbn-O7HzcR {}
+
+    .home .managing-partner-UrjqSj {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: 2.40px;
+      line-height: 170px;
+      margin-bottom: -150px;
+      margin-top: 2px;
+      min-height: 20px;
+      min-width: 163px;
+      mix-blend-mode: normal;
+      position: relative;
+      text-align: left;
+      white-space: nowrap;
+      width: auto;
+    }
+
+    .home .spanr5o2n-TQoswL {}
+
+    .home .team-92cy7J {
+      align-items: flex-start;
+      background-color: transparent;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 1;
+      height: auto;
+      justify-content: flex-start;
+      margin-left: 15px;
+      min-height: 380px;
+      position: relative;
+      width: 299px;
+    }
+
+    .home .rectangle-5-Phrcpe {
+      background-color: var(--heavy-metal);
+      border-radius: 10px;
+      flex-shrink: 1;
+      height: 287px;
+      mix-blend-mode: normal;
+      position: relative;
+      width: 295px;
+    }
+
+    .home .michal-cudrnak-Phrcpe {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: 0.00px;
+      line-height: 170px;
+      margin-bottom: -122px;
+      margin-top: 23px;
+      min-height: 48px;
+      min-width: 211px;
+      mix-blend-mode: normal;
+      position: relative;
+      text-align: left;
+      white-space: nowrap;
+      width: auto;
+    }
+
+    .home .spanz293q-U1IcFk {}
+
+    .home .managing-partner-Phrcpe {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: 2.40px;
+      line-height: 170px;
+      margin-bottom: -150px;
+      margin-top: 2px;
+      min-height: 20px;
+      min-width: 163px;
+      mix-blend-mode: normal;
+      position: relative;
+      text-align: left;
+      white-space: nowrap;
+      width: auto;
+    }
+
+    .home .spany4hx2l-8hxBLH {}
+
+    .home .team-OJsZkx {
+      align-items: flex-start;
+      background-color: transparent;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 1;
+      height: auto;
+      justify-content: flex-start;
+      margin-left: 15px;
+      min-height: 380px;
+      position: relative;
+      width: 299px;
+    }
+
+    .home .rectangle-4-w5ybJO {
+      background-color: var(--heavy-metal);
+      border-radius: 10px;
+      flex-shrink: 1;
+      height: 287px;
+      mix-blend-mode: normal;
+      position: relative;
+      width: 295px;
+    }
+
+    .home .avril-millar-w5ybJO {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: 0.00px;
+      line-height: 170px;
+      margin-bottom: -122px;
+      margin-top: 23px;
+      min-height: 48px;
+      min-width: 147px;
+      mix-blend-mode: normal;
+      position: relative;
+      text-align: left;
+      white-space: nowrap;
+      width: auto;
+    }
+
+    .home .span7vhrmg-0KTiUB {}
+
+    .home .chief-of-staff-w5ybJO {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: 2.40px;
+      line-height: 170px;
+      margin-bottom: -150px;
+      margin-top: 2px;
+      min-height: 20px;
+      min-width: 125px;
+      mix-blend-mode: normal;
+      position: relative;
+      text-align: left;
+      white-space: nowrap;
+      width: auto;
+    }
+
+    .home .spanwd368-libXlg {}
+
+    .home .team-container-1RxDxc {
+      align-items: flex-start;
+      background-color: transparent;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: row;
+      flex-shrink: 1;
+      height: 380px;
+      justify-content: flex-start;
+      margin-right: 1px;
+      margin-top: 75px;
+      min-width: 926px;
+      position: relative;
+      width: auto;
+    }
+
+    .home .team-S1lPoQ {
+      align-items: flex-start;
+      background-color: transparent;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 1;
+      height: auto;
+      justify-content: flex-start;
+      min-height: 380px;
+      position: relative;
+      width: 299px;
+    }
+
+    .home .rectangle-4-viMw0p {
+      background-color: var(--heavy-metal);
+      border-radius: 10px;
+      flex-shrink: 1;
+      height: 287px;
+      mix-blend-mode: normal;
+      position: relative;
+      width: 295px;
+    }
+
+    .home .andrei-vasilca-viMw0p {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: 0.00px;
+      line-height: 170px;
+      margin-bottom: -122px;
+      margin-top: 23px;
+      min-height: 48px;
+      min-width: 190px;
+      mix-blend-mode: normal;
+      position: relative;
+      text-align: left;
+      white-space: nowrap;
+      width: auto;
+    }
+
+    .home .spanr849m-xxVi5N {}
+
+    .home .technology-associate-viMw0p {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: 2.40px;
+      line-height: 170px;
+      margin-bottom: -150px;
+      margin-top: 2px;
+      min-height: 20px;
+      min-width: 199px;
+      mix-blend-mode: normal;
+      position: relative;
+      text-align: left;
+      white-space: nowrap;
+      width: auto;
+    }
+
+    .home .spanw9nvq-Cx2ino {}
+
+    .home .team-zc08WR {
+      align-items: flex-start;
+      background-color: transparent;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 1;
+      height: auto;
+      justify-content: flex-start;
+      margin-left: 15px;
+      min-height: 380px;
+      position: relative;
+      width: 299px;
+    }
+
+    .home .rectangle-5-UM68IL {
+      background-color: var(--heavy-metal);
+      border-radius: 10px;
+      flex-shrink: 1;
+      height: 287px;
+      mix-blend-mode: normal;
+      position: relative;
+      width: 295px;
+    }
+
+    .home .bartosz-stasik-UM68IL {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: 0.00px;
+      line-height: 170px;
+      margin-bottom: -122px;
+      margin-top: 23px;
+      min-height: 48px;
+      min-width: 189px;
+      mix-blend-mode: normal;
+      position: relative;
+      text-align: left;
+      white-space: nowrap;
+      width: auto;
+    }
+
+    .home .spanysxmr-HBti4x {}
+
+    .home .technology-associate-UM68IL {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: 2.40px;
+      line-height: 170px;
+      margin-bottom: -150px;
+      margin-top: 2px;
+      min-height: 20px;
+      min-width: 199px;
+      mix-blend-mode: normal;
+      position: relative;
+      text-align: left;
+      white-space: nowrap;
+      width: auto;
+    }
+
+    .home .spanfaq9s-4qoYDn {}
+
+    .home .team-NPyb76 {
+      align-items: flex-start;
+      background-color: transparent;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 1;
+      height: auto;
+      justify-content: flex-start;
+      margin-left: 14px;
+      min-height: 380px;
+      position: relative;
+      width: 299px;
+    }
+
+    .home .rectangle-6-xv6abl {
+      background-color: var(--heavy-metal);
+      border-radius: 10px;
+      flex-shrink: 1;
+      height: 287px;
+      mix-blend-mode: normal;
+      position: relative;
+      width: 295px;
+    }
+
+    .home .thomas-hori-xv6abl {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: 0.00px;
+      line-height: 170px;
+      margin-bottom: -122px;
+      margin-top: 23px;
+      min-height: 48px;
+      min-width: 175px;
+      mix-blend-mode: normal;
+      position: relative;
+      text-align: left;
+      white-space: nowrap;
+      width: auto;
+    }
+
+    .home .spanz7ak9-2wtWoo {}
+
+    .home .technology-associate-xv6abl {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: 2.40px;
+      line-height: 170px;
+      margin-bottom: -150px;
+      margin-top: 2px;
+      min-height: 20px;
+      min-width: 199px;
+      mix-blend-mode: normal;
+      position: relative;
+      text-align: left;
+      white-space: nowrap;
+      width: auto;
+    }
+
+    .home .spannygu7-4PuZMX {}
+
+    .home .flex-row-xl4bh6 {
+      align-items: flex-start;
+      background-color: transparent;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: row;
+      flex-shrink: 1;
+      height: 330px;
+      justify-content: flex-start;
+      margin-left: 3.0px;
+      margin-top: 98px;
+      min-width: 1239px;
+      position: relative;
+      width: auto;
+    }
+
+    .home .our-work-title-ZWccXv {
+      align-items: flex-start;
+      background-color: transparent;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 1;
+      height: auto;
+      justify-content: flex-start;
+      min-height: 280px;
+      position: relative;
+      width: 299px;
+    }
+
+    .home .lets-chat-LfLbvB {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: -0.50px;
+      line-height: 121.4px;
+      min-height: 61px;
+      min-width: 220px;
+      mix-blend-mode: normal;
+      position: relative;
+      text-align: left;
+      white-space: nowrap;
+      width: auto;
+    }
+
+    .home .spanypch1-59Wa9E {}
+
+    .home .line-2-LfLbvB {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: 1px;
+      margin-top: 29px;
+      position: relative;
+      width: 295px;
+    }
+
+    .home .wed-love-to-hear-abo-LfLbvB {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: 0.00px;
+      line-height: 170px;
+      margin-bottom: -11px;
+      margin-top: 30px;
+      min-height: 159px;
+      min-width: 295px;
+      mix-blend-mode: normal;
+      opacity: 0.5;
+      position: relative;
+      text-align: left;
+      white-space: nowrap;
+      width: 295px;
+    }
+
+    .home .spann3z2t-mMowZb {}
+
+    .home .hello-container-ZWccXv {
+      align-items: flex-start;
+      align-self: flex-end;
+      background-color: transparent;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 1;
+      height: auto;
+      justify-content: flex-start;
+      margin-left: 645px;
+      min-height: 240px;
+      position: relative;
+      width: 295px;
+    }
+
+    .home .say-hello-LsQPpT {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: 2.40px;
+      line-height: 170px;
+      margin-bottom: -150px;
+      min-height: 20px;
+      min-width: 85px;
+      mix-blend-mode: normal;
+      position: relative;
+      text-align: left;
+      white-space: nowrap;
+      width: auto;
+    }
+
+    .home .spanc6ryo-zR9nxl {}
+
+    .home .hellomegaslicecouk-m-LsQPpT {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: 0.00px;
+      line-height: 170px;
+      margin-top: 20px;
+      min-height: 200px;
+      min-width: 295px;
+      mix-blend-mode: normal;
+      position: relative;
+      text-align: left;
+      white-space: nowrap;
+      width: 295px;
+    }
+
+    .home .span0-JpQOl3 {
+      color: var(--punch);
+      font-family: var(--font-family-nunito);
+      font-size: var(--font-size-xl);
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    .home .spank48h7-JpQOl3 {}
+
+    .home .line-3-xl4bh6 {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: 1px;
+      margin-top: 98px;
+      position: relative;
+      width: 1440px;
+    }
+
+    .home .x2021-all-rights-reserved-mega-slice-llp-xl4bh6 {
+      background-color: transparent;
+      flex-shrink: 1;
+      height: auto;
+      letter-spacing: 0.00px;
+      line-height: 170px;
+      margin-bottom: -11px;
+      margin-right: 1.0px;
+      margin-top: 32px;
+      min-height: 159px;
+      min-width: 429px;
+      mix-blend-mode: normal;
+      opacity: 0.5;
+      position: relative;
+      text-align: center;
+      white-space: nowrap;
+      width: 429px;
+    }
+
+    .home .span0ohux-tzHvJ9 {}
+  </style>
+  <style>
+    [class*="intercom"] {
+      display: none
+    }
+
+    [data-id] {
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body
+  style="margin: 0px; background: transparent; display: flex; align-items: center; justify-content: center; pointer-events: none;">
+  <input type="hidden" id="anPageName" name="page" value="home">
+  <div class="container-center-horizontal">
+    <div class="home screen " data-id="1:2">
+      <div class="flex-col-xl4bh6" data-id="-6177047407070335412">
+        <div class="nav-PVHVD6 nunito-bold-black-16px" data-id="8:29">
+          <img class="image-1-O3YGrV" data-id="2:1"
+            src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/image-1-1@1x.png"><img
+            class="image-2-O3YGrV" data-id="3:2"
+            src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/image-2-1@2x.png">
+          <div class="process-O3YGrV" data-id="3:4"><span class="spanmti1b-8wXwvY nunito-bold-black-16px">Process</span>
+          </div>
+          <div class="work-O3YGrV" data-id="3:5"><span class="span1gmlp-F7qEFb nunito-bold-black-16px">Work</span></div>
+          <div class="about-O3YGrV" data-id="3:6"><span class="spanuc7nng-vYxqDA nunito-bold-black-16px">About</span>
+          </div>
+          <div class="contact-O3YGrV" data-id="3:7"><span class="spanbxx5s-tsxl5h nunito-bold-black-16px">Contact</span>
+          </div>
+        </div>
+        <div class="flex-row-PVHVD6" data-id="-7597122803619566255"><img class="union-oiO4pL" data-id="436:2"
+            src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/union-1@2x.png"><img
+            class="image-5-oiO4pL" data-id="21:1"
+            src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/image-5-1@1x.png">
+        </div>
+        <div class="process-PVHVD6" data-id="8:151">
+          <div class="process-SbUbMc" data-id="8:144">
+            <div class="flex-col-WIvmrJ" data-id="4973497670733509684">
+              <img class="line-1-AZxuNN" data-id="8:130"
+                src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/line-2-3@2x.png">
+              <div class="weve-worked-with-sta-AZxuNN nunito-semi-bold-black-15px" data-id="8:129"><span
+                  class="span54i8d-g0uEYW nunito-semi-bold-black-15px">We’ve worked with startups to enterprise. Each
+                  time our work with them has led the business to more success or revenue</span></div>
+              <div class="our-programmes-AZxuNN domainedisplay-regular-normal-black-50px" data-id="8:128"><span
+                  class="span0gsxb-A8Ccpz domainedisplay-regular-normal-black-50px">Our Programmes</span></div>
+            </div>
+            <div class="stat-WIvmrJ" data-id="8:140">
+              <div class="x100m-mUAX09 domainedisplay-regular-normal-punch-50px" data-id="8:131"><span
+                  class="spanzpcsi-MHzlAR domainedisplay-regular-normal-punch-50px">£100m+</span></div>
+              <div class="tangible-improvement-mUAX09 nunito-semi-bold-black-15px" data-id="8:132"><span
+                  class="spanz6yt3-3N64H8 nunito-semi-bold-black-15px">Tangible improvements in valuation for our
+                  clients.</span></div>
+            </div>
+            <div class="stat-CbGBx9" data-id="8:139">
+              <div class="x30m-qC0avl domainedisplay-regular-normal-punch-50px" data-id="8:136"><span
+                  class="spanu2usj-XmloJf domainedisplay-regular-normal-punch-50px">£30m+</span></div>
+              <div class="improvement-in-reven-qC0avl nunito-semi-bold-black-15px" data-id="8:135"><span
+                  class="spanmvx9x-gexPZD nunito-semi-bold-black-15px">Improvement in revenues for our clients following
+                  our targeted technology work</span></div>
+            </div>
+            <div class="stat-MFSQqu" data-id="8:141">
+              <div class="x100-VqwTFi domainedisplay-regular-normal-punch-50px" data-id="8:143"><span
+                  class="spanqn25b-K62Z3V domainedisplay-regular-normal-punch-50px">100%</span></div>
+              <div class="technology-delivery-VqwTFi nunito-semi-bold-black-15px" data-id="8:142"><span
+                  class="spanx4jxk-gMl1SX nunito-semi-bold-black-15px">Technology delivery success rate on every project
+                  we’ve been involved in.</span></div>
+            </div>
+          </div>
+          <div class="flex-row-SbUbMc" data-id="8904555197426313940">
+            <div class="overlap-group-container-jQG4p9" data-id="3183413490196903765">
+              <div class="overlap-group-RY3CY1" data-id="-8283610150150569681">
+                <div class="card-1Szexc" data-id="8:27">
+                  <div class="rectangle-1-cTPCxZ" data-id="5:21"></div>
+                  <img class="image-1-cTPCxZ" data-id="78:3"
+                    src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/image-5-3@2x.png"><img
+                    class="image-2-cTPCxZ" data-id="78:4"
+                    src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/image-5-3@2x.png"><img
+                    class="image-3-cTPCxZ" data-id="78:5"
+                    src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/image-5-3@2x.png"><img
+                    class="image-4-cTPCxZ" data-id="78:6"
+                    src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/image-5-3@2x.png"><img
+                    class="image-5-cTPCxZ" data-id="78:7"
+                    src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/image-5-3@2x.png">
+                  <div class="clarify-your-idea-an-cTPCxZ nunito-semi-bold-pampas-15px" data-id="78:2"><span
+                      class="spank6maa-xxyx6M nunito-semi-bold-pampas-15px">Clarify your idea and what markets need
+                      it.<br>Understand your key audience and design a product they will love.<br>Eliminate technical
+                      risks from the project as early as possible.<br>Deliver just the right product to get out of the
+                      door fast.<br>Help you build a product roadmap and move to maturity.</span></div>
+                  <div class="launch-cTPCxZ domainedisplay-regular-normal-pampas-28px" data-id="5:23"><span
+                      class="spanqm9aa-7ycAPf domainedisplay-regular-normal-pampas-28px">Launch</span></div>
+                  <div class="get-your-fledgling-i-cTPCxZ nunito-semi-bold-pampas-15px" data-id="5:24"><span
+                      class="span0-MwsVpd nunito-semi-bold-pampas-15px">Get your fledgling idea out of your mind and
+                      into the market. <br><br></span><span class="span1-MwsVpd nunito-bold-pampas-13px">WE HELP
+                      YOU</span></div>
+                </div>
+                <img class="startup-rocket-space-1Szexc" data-id="8:0"
+                  src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/startup-rocket-spaceship-business-strategy-1-1@2x.png">
+              </div>
+              <div class="overlap-group1-RY3CY1" data-id="-3775190863127744392">
+                <div class="card-fXp2Cw" data-id="78:42">
+                  <div class="rectangle-1-t7Z7g3" data-id="78:43"></div>
+                  <img class="image-1-t7Z7g3" data-id="78:44"
+                    src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/image-5-3@2x.png"><img
+                    class="image-2-t7Z7g3" data-id="78:45"
+                    src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/image-5-3@2x.png"><img
+                    class="image-3-t7Z7g3" data-id="78:46"
+                    src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/image-5-3@2x.png">
+                  <div class="identify-opportuniti-t7Z7g3 nunito-semi-bold-pampas-15px" data-id="78:49"><span
+                      class="spanoaw5l-KRxKPx nunito-semi-bold-pampas-15px">Identify opportunities for technology in
+                      your market, your operations, and your areas of expertise.<br>Help you understand how to plan and
+                      execute a technology strategy, from a complete business refresh to enhancing your existing
+                      operations.<br>Work hands-on alongside you to ensure your new strategy is executed correctly and
+                      returns real value.</span></div>
+                  <div class="boost-t7Z7g3 domainedisplay-regular-normal-pampas-28px" data-id="78:50"><span
+                      class="spanlopdt-8k4EBA domainedisplay-regular-normal-pampas-28px">Boost</span></div>
+                  <div class="leverage-your-expert-t7Z7g3 nunito-semi-bold-pampas-15px" data-id="78:51"><span
+                      class="span0-WBoxEX nunito-semi-bold-pampas-15px">Leverage your expertise in your existing
+                      non-technical business, and multiply it using technology. <br><br></span><span
+                      class="span1-WBoxEX nunito-bold-pampas-13px">WE HELP YOU</span></div>
+                </div>
+                <img class="design-blueprint-building-sketch-1-fXp2Cw" data-id="78:33"
+                  src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/design-blueprint-building-sketch-1-1@2x.png">
+              </div>
+            </div>
+            <div class="overlap-group-container-Px4xZr" data-id="8772192017910396959">
+              <div class="overlap-group3-1qx7yv" data-id="-9025659801684891770">
+                <div class="card-sZ9z2G" data-id="78:8">
+                  <div class="rectangle-1-0Vqgip" data-id="78:9"></div>
+                  <img class="image-1-0Vqgip" data-id="78:10"
+                    src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/image-5-3@2x.png"><img
+                    class="image-2-0Vqgip" data-id="78:11"
+                    src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/image-5-3@2x.png"><img
+                    class="image-3-0Vqgip" data-id="78:12"
+                    src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/image-5-3@2x.png"><img
+                    class="image-5-0Vqgip" data-id="78:14"
+                    src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/image-5-3@2x.png">
+                  <div class="get-a-handle-on-the-0Vqgip nunito-semi-bold-pampas-15px" data-id="78:15"><span
+                      class="spanlfsgt-6gLrUL nunito-semi-bold-pampas-15px">Get a handle on the true state of your
+                      project.<br>Assist you to control the most pressing and costly problems.<br>Architect and design a
+                      tech refresh with the concerted aim of<br>adding NEW value.<br>Plan delivery around your existing
+                      operations and avoid disruption.</span></div>
+                  <div class="reboot-0Vqgip domainedisplay-regular-normal-pampas-28px" data-id="78:16"><span
+                      class="spankuvv6-3fdWUN domainedisplay-regular-normal-pampas-28px">Reboot</span></div>
+                  <div class="take-your-existing-t-0Vqgip nunito-semi-bold-pampas-15px" data-id="78:17"><span
+                      class="span0-aOwr39 nunito-semi-bold-pampas-15px">Take your existing tech, bring it under control
+                      and give it a refresh.<br><br></span><span class="span1-aOwr39 nunito-bold-pampas-13px">WE HELP
+                      YOU</span></div>
+                </div>
+                <img class="branding-corporate-identity-design-1-sZ9z2G" data-id="78:67"
+                  src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/branding-corporate-identity-design-1-1@2x.png">
+              </div>
+              <div class="overlap-group2-1qx7yv" data-id="-2793972198181384781">
+                <div class="card-qF6u5k" data-id="78:84">
+                  <div class="rectangle-1-2SHdbu" data-id="78:85"></div>
+                  <img class="image-1-2SHdbu" data-id="78:86"
+                    src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/image-5-3@2x.png"><img
+                    class="image-2-2SHdbu" data-id="78:87"
+                    src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/image-5-3@2x.png"><img
+                    class="image-3-2SHdbu" data-id="78:88"
+                    src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/image-5-3@2x.png">
+                  <div class="by-giving-you-regula-2SHdbu nunito-semi-bold-pampas-15px" data-id="78:89"><span
+                      class="spanq818e-zkuxAc nunito-semi-bold-pampas-15px">By giving you regular, frank, arms-length
+                      guidance on your technology dependencies.<br>Identify and stop critical problems turning into
+                      expensive monsters, as early as possible.<br>Take concrete action in a clear plan to get control
+                      of technology and make it work for you.</span></div>
+                  <div class="x-ray-2SHdbu domainedisplay-regular-normal-pampas-28px" data-id="78:90"><span
+                      class="spanc55mj-VyrOE4 domainedisplay-regular-normal-pampas-28px">X-Ray</span></div>
+                  <div class="turn-on-the-bs-detec-2SHdbu nunito-semi-bold-pampas-15px" data-id="78:91"><span
+                      class="span0-Luh7mO nunito-semi-bold-pampas-15px">Turn on the BS detector and get a handle on any
+                      technological part of your business that impacts you.<br><br></span><span
+                      class="span1-Luh7mO nunito-bold-pampas-13px">WE HELP YOU</span></div>
+                </div>
+                <img class="data-analysis-resear-qF6u5k" data-id="78:108"
+                  src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/data-analysis-research-proposal-summarize-1-1@2x.png">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="quote-PVHVD6 domainedisplay-bold-black-200px" data-id="14:22">
+          <div class="text_label-jfW6sD" data-id="14:14"><span
+              class="span9g7hj-zkckSL domainedisplay-bold-black-200px">“</span></div>
+          <div class="flex-col-jfW6sD" data-id="1075528085586548146">
+            <div class="our-new-idea-was-so-JKUpQf nunito-semi-bold-black-18px" data-id="14:13"><span
+                class="spanwnh4v-kZKT1Q nunito-semi-bold-black-18px">Our new idea was so ambitious and radical that
+                everyone else we spoke to couldn’t comprehend its technical complexity, let alone the business element.
+                But Megaslice deeply understood what we wanted to do, and have helped us charge ahead and overcome
+                innumerable setbacks.</span></div>
+            <div class="rob-taylor-ceo-of-4-gd-JKUpQf nunito-bold-black-15px" data-id="14:15"><span
+                class="spankn6ap-0Im4fs nunito-bold-black-15px">Rob Taylor — CEO of 4GD</span></div>
+          </div>
+          <div class="text_label-fwbCW1" data-id="14:25"><span
+              class="span0a1dp-nJ0gov domainedisplay-bold-black-200px">”</span></div>
+        </div>
+        <div class="our-work-PVHVD6" data-id="14:7">
+          <div class="flex-col-djc7xC" data-id="1605176323569758593">
+            <div class="flex-row-vnzff4" data-id="5239564308552249675">
+              <div class="our-work-title-7o6XY4" data-id="8:150">
+                <div class="our-work-3g6Rxp domainedisplay-regular-normal-black-50px" data-id="8:147"><span
+                    class="spanyp6fzj-tvctvV domainedisplay-regular-normal-black-50px">Our Work</span></div>
+                <img class="line-2-3g6Rxp" data-id="8:148"
+                  src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/line-2-1@2x.png">
+                <div class="our-multitalented-te-3g6Rxp nunito-semi-bold-black-15px" data-id="8:146"><span
+                    class="spanh1zof-QqFXPn nunito-semi-bold-black-15px">Our multitalented team can help you get a grip
+                    on your technology at every level — board, executive, management and engineering.</span></div>
+              </div>
+              <div class="fx-7o6XY4" data-id="12:40">
+                <div class="overlap-group4-2MDYhN" data-id="7104554473753571590"><img
+                    class="screenshot-2021-05-19-at-1400-2-dZgc49" data-id="14:3"
+                    src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/screenshot-2021-05-19-at-14-00-2-1@2x.png"><img
+                    class="image-4-dZgc49" data-id="14:1"
+                    src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/image-4-2@2x.png">
+                </div>
+                <div class="fintech-2MDYhN nunito-bold-black-12px" data-id="12:43"><span
+                    class="spandq5qo-iMT6dv nunito-bold-black-12px">FINTECH</span></div>
+                <div class="megaslice-and-fx-pro-2MDYhN nunito-semi-bold-black-18px" data-id="12:41"><span
+                    class="spanex9t7g-5iUaWQ nunito-semi-bold-black-18px">Megaslice and FxPro work together at board
+                    level to steer major internal IT projects and a big new tech offering towards viability and
+                    profitability.</span></div>
+              </div>
+            </div>
+            <div class="overlap-group5-vnzff4" data-id="8798095681662883086">
+              <div class="x4-gd-jztKYO" data-id="12:34">
+                <div class="overlap-group2-Yh7set" data-id="7060038624709448264"><img
+                    class="crystal-kwok-xu-edfp-p-ih-xg-unsplash-3-nox7aA" data-id="12:35"
+                    src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/crystal-kwok-xuedfppihxg-unsplash-3-2@2x.png"><img
+                    class="crystal-kwok-xu-edfp-p-ih-xg-unsplash-4-nox7aA" data-id="14:4"
+                    src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/crystal-kwok-xuedfppihxg-unsplash-4-2@2x.png"><img
+                    class="rectangle-2-nox7aA" data-id="12:38"
+                    src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/rectangle-2-2@2x.png">
+                </div>
+                <div class="logistics-Yh7set nunito-bold-black-12px" data-id="12:37"><span
+                    class="span6h6re-5QApD0 nunito-bold-black-12px">LOGISTICS</span></div>
+                <div class="megaslice-and-smartl-Yh7set nunito-semi-bold-black-18px" data-id="12:36"><span
+                    class="spanc0l22-TvgHlX nunito-semi-bold-black-18px">Megaslice and Smartlogistix integrate
+                    mission-critical logistics systems to enable end-to-end visibility of a huge retail device
+                    estate</span></div>
+              </div>
+              <img class="smartlogistix-logo-1-jztKYO" data-id="13:2"
+                src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/smartlogistix-logo-1-1@2x.png">
+            </div>
+          </div>
+          <div class="flex-col-ftWWxy" data-id="9110264445123475537">
+            <div class="x4-gd-wNhYZx" data-id="12:13">
+              <div class="overlap-group-FXxfLi" data-id="-1382817158652410370"><img
+                  class="crystal-kwok-xu-edfp-p-ih-xg-unsplash-3-Krj3su" data-id="12:6"
+                  src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/crystal-kwok-xuedfppihxg-unsplash-3-1@2x.png"><img
+                  class="crystal-kwok-xu-edfp-p-ih-xg-unsplash-4-Krj3su" data-id="14:6"
+                  src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/crystal-kwok-xuedfppihxg-unsplash-4-1@2x.png"><img
+                  class="rectangle-2-Krj3su" data-id="12:12"
+                  src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/rectangle-2-3@2x.png"><img
+                  class="attachment-3_4-gd-black-logo-1-Krj3su" data-id="12:11"
+                  src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/attachment-3-4gd-black-logo-1-1@2x.png">
+              </div>
+              <div class="overlap-group1-FXxfLi" data-id="6330146344896899093">
+                <div class="megaslice-and-4-gd-b-XHZgeo nunito-semi-bold-black-18px" data-id="12:8"><span
+                    class="spanj5du2-YB1HIO nunito-semi-bold-black-18px">Megaslice and 4GD bring training and
+                    performance into the next generation, with AV, biometrics, weapons tracking, and real-time data
+                    visualisation.</span></div>
+                <div class="defense-XHZgeo nunito-semi-bold-black-12px" data-id="12:10"><span
+                    class="span0-cacQ2a nunito-bold-black-12px">DEFENSE</span><span
+                    class="span1-cacQ2a nunito-semi-bold-black-12px"></span></div>
+              </div>
+            </div>
+            <div class="smart-wNhYZx" data-id="12:14">
+              <div class="overlap-group3-xun0Qo" data-id="2246299141413496522"><img
+                  class="crystal-kwok-xu-edfp-p-ih-xg-unsplash-3-cOO2gH" data-id="14:5"
+                  src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/crystal-kwok-xuedfppihxg-unsplash-3-3@2x.png"><img
+                  class="rectangle-2-cOO2gH" data-id="12:18"
+                  src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/rectangle-2-3@2x.png"><img
+                  class="image-3-cOO2gH" data-id="12:33"
+                  src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/image-3-5@2x.png">
+              </div>
+              <div class="industrial-xun0Qo nunito-bold-black-12px" data-id="12:17"><span
+                  class="spanhtq0a-u2gzfW nunito-bold-black-12px">INDUSTRIAL</span></div>
+              <div class="megaslice-and-pilana-xun0Qo nunito-semi-bold-black-18px" data-id="12:16"><span
+                  class="spanhtlqv-vtxxHV nunito-semi-bold-black-18px">Megaslice and Pilana build out the next
+                  generation of business process management tools for the production of industrial tooling.</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="members-of-PVHVD6 nunito-bold-black-15px" data-id="77:0"><span
+            class="spantu5uk-Bzwx5E nunito-bold-black-15px">MEMBERS OF</span></div>
+        <div class="flex-row-Q8mnGL" data-id="-207851898237484398">
+          <div class="rectangle-7-xo7qAj" data-id="78:123"></div>
+          <div class="rectangle-8-xo7qAj" data-id="78:124"></div>
+          <div class="rectangle-9-xo7qAj" data-id="78:125"></div>
+          <div class="rectangle-10-xo7qAj" data-id="78:126"></div>
+          <div class="rectangle-11-xo7qAj" data-id="78:127"></div>
+        </div>
+        <div class="flex-col-PVHVD6" data-id="3550708865757600413">
+          <div class="flex-row-1RxDxc" data-id="-8202974821380660152">
+            <div class="our-work-title-5D1xSy" data-id="14:9">
+              <div class="our-team-qT8Aip domainedisplay-regular-normal-pampas-50px" data-id="14:11"><span
+                  class="span8epkv-xYCtxA domainedisplay-regular-normal-pampas-50px">Our Team</span></div>
+              <img class="line-2-qT8Aip" data-id="14:12"
+                src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/line-2-2@2x.png">
+              <div class="lorem-ipsum-dolor-si-qT8Aip nunito-semi-bold-pampas-15px" data-id="14:10"><span
+                  class="spani3jui-OkGVN6 nunito-semi-bold-pampas-15px">Lorem ipsum dolor sit amet, consectetur
+                  adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></div>
+            </div>
+            <div class="team-5D1xSy" data-id="14:44">
+              <div class="rectangle-4-UrjqSj" data-id="14:26"></div>
+              <div class="justin-megawarne-UrjqSj domainedisplay-semi-bold-pampas-28px" data-id="14:29"><span
+                  class="span2ywbn-O7HzcR domainedisplay-semi-bold-pampas-28px">Justin Megawarne</span></div>
+              <div class="managing-partner-UrjqSj nunito-bold-pampas-12px" data-id="14:30"><span
+                  class="spanr5o2n-TQoswL nunito-bold-pampas-12px">Managing Partner</span></div>
+            </div>
+            <div class="team-92cy7J" data-id="14:43">
+              <div class="rectangle-5-Phrcpe" data-id="14:27"></div>
+              <div class="michal-cudrnak-Phrcpe domainedisplay-semi-bold-pampas-28px" data-id="14:38"><span
+                  class="spanz293q-U1IcFk domainedisplay-semi-bold-pampas-28px">Michal Cudrnak</span></div>
+              <div class="managing-partner-Phrcpe nunito-bold-pampas-12px" data-id="14:39"><span
+                  class="spany4hx2l-8hxBLH nunito-bold-pampas-12px">Managing Partner</span></div>
+            </div>
+            <div class="team-OJsZkx" data-id="14:45">
+              <div class="rectangle-4-w5ybJO" data-id="14:48"></div>
+              <div class="avril-millar-w5ybJO domainedisplay-semi-bold-pampas-28px" data-id="14:46"><span
+                  class="span7vhrmg-0KTiUB domainedisplay-semi-bold-pampas-28px">Avril Millar</span></div>
+              <div class="chief-of-staff-w5ybJO nunito-bold-pampas-12px" data-id="14:47"><span
+                  class="spanwd368-libXlg nunito-bold-pampas-12px">Chief of Staff</span></div>
+            </div>
+          </div>
+          <div class="team-container-1RxDxc" data-id="5717432559850441911">
+            <div class="team-S1lPoQ" data-id="14:57">
+              <div class="rectangle-4-viMw0p" data-id="14:60"></div>
+              <div class="andrei-vasilca-viMw0p domainedisplay-semi-bold-pampas-28px" data-id="14:58"><span
+                  class="spanr849m-xxVi5N domainedisplay-semi-bold-pampas-28px">Andrei Vasilca</span></div>
+              <div class="technology-associate-viMw0p nunito-bold-pampas-12px" data-id="14:59"><span
+                  class="spanw9nvq-Cx2ino nunito-bold-pampas-12px">Technology Associate</span></div>
+            </div>
+            <div class="team-zc08WR" data-id="14:49">
+              <div class="rectangle-5-UM68IL" data-id="14:52"></div>
+              <div class="bartosz-stasik-UM68IL domainedisplay-semi-bold-pampas-28px" data-id="14:50"><span
+                  class="spanysxmr-HBti4x domainedisplay-semi-bold-pampas-28px">Bartosz Stasik</span></div>
+              <div class="technology-associate-UM68IL nunito-bold-pampas-12px" data-id="14:51"><span
+                  class="spanfaq9s-4qoYDn nunito-bold-pampas-12px">Technology Associate</span></div>
+            </div>
+            <div class="team-NPyb76" data-id="14:53">
+              <div class="rectangle-6-xv6abl" data-id="14:56"></div>
+              <div class="thomas-hori-xv6abl domainedisplay-semi-bold-pampas-28px" data-id="14:54"><span
+                  class="spanz7ak9-2wtWoo domainedisplay-semi-bold-pampas-28px">Thomas Hori</span></div>
+              <div class="technology-associate-xv6abl nunito-bold-pampas-12px" data-id="14:55"><span
+                  class="spannygu7-4PuZMX nunito-bold-pampas-12px">Technology Associate</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex-row-xl4bh6" data-id="7661371708765332266">
+        <div class="our-work-title-ZWccXv" data-id="14:61">
+          <div class="lets-chat-LfLbvB domainedisplay-regular-normal-black-50px" data-id="14:63"><span
+              class="spanypch1-59Wa9E domainedisplay-regular-normal-black-50px">Let’s Chat</span></div>
+          <img class="line-2-LfLbvB" data-id="14:64"
+            src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/line-2-3@2x.png">
+          <div class="wed-love-to-hear-abo-LfLbvB nunito-semi-bold-black-15px" data-id="14:62"><span
+              class="spann3z2t-mMowZb nunito-semi-bold-black-15px">We’d love to hear about your brand and business
+              challenges, even if you’re not sure what your next step is. No pitch, no strings attached.</span></div>
+        </div>
+        <div class="hello-container-ZWccXv" data-id="-2326154042461204947">
+          <div class="say-hello-LsQPpT nunito-bold-black-12px" data-id="14:106"><span
+              class="spanc6ryo-zR9nxl nunito-bold-black-12px">SAY HELLO</span></div>
+          <div class="hellomegaslicecouk-m-LsQPpT nunito-semi-bold-black-18px" data-id="14:104"><span
+              class="span0-JpQOl3">hello@megaslice.co.uk<br></span><span
+              class="spank48h7-JpQOl3 nunito-semi-bold-black-18px"><br>Megaslice LLP<br>40 Granville AvenueSlough, Berks
+              SL2 1NA United Kingdom</span></div>
+        </div>
+      </div>
+      <img class="line-3-xl4bh6" data-id="14:109"
+        src="https://anima-uploads.s3.amazonaws.com/projects/627915a9fcef59855a670fee/releases/627915de814ba58deac3be1f/img/line-3-1@2x.png">
+      <div class="x2021-all-rights-reserved-mega-slice-llp-xl4bh6 nunito-semi-bold-black-15px" data-id="14:108"><span
+          class="span0ohux-tzHvJ9 nunito-semi-bold-black-15px">©2021 All Rights Reserved&nbsp;&nbsp; -&nbsp;&nbsp;
+          MegaSlice LLP</span></div>
+    </div>
+  </div>
+</body>
+
+</html>
